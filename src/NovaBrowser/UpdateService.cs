@@ -96,7 +96,7 @@ internal static class UpdateService
 
         report("Verificando integridade do arquivo…");
         var checksum = await Client.GetStringAsync(update.ChecksumUrl);
-        var expected = checksum.Trim().Split(' ', '\t', '\r', '\n',
+        var expected = checksum.Trim().Split(new[] { ' ', '\t', '\r', '\n' },
             StringSplitOptions.RemoveEmptyEntries).FirstOrDefault() ?? "";
         if (expected.Length != 64 || !expected.All(Uri.IsHexDigit))
             throw new InvalidDataException("O Release não possui um SHA-256 válido.");
